@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #060913; /* Very dark blue from logo */
+  --surface-color: rgba(255, 255, 255, 0.04); /* Glassmorphism base */
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --primary-red: #E60000; /* Vibrant red from logo */
+  --primary-red-hover: #FF1A1A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  
+  --status-pending: #F59E0B;
+  --status-posting: #3B82F6;
+  --status-success: #10B981;
+  --status-error: #EF4444;
+
+  --font-family: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(230, 0, 0, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(0, 0, 100, 0.2), transparent 25%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

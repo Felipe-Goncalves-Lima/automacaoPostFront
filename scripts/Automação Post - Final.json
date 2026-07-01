@@ -1,0 +1,2729 @@
+{
+  "name": "Automação Post",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node_insta }}/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.image_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8cb9dfcd-3076-46df-8869-aa0bef9a9328",
+      "name": "Container HTTP Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node_insta }}/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=REELS"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.video_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            },
+            {
+              "name": "audio_name",
+              "value": "Monody (feat. Laura Brehm)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "511a229a-ebf7-439b-9636-5e04e7c79282",
+      "name": "Container HTTP Reels",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        1344
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node }}",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "image_url",
+                "value": "={{ $json.image_url }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "b00350bb-b74a-456e-9bb3-c6b47d6419aa",
+      "name": "Container FB Image",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        288
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node }}",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "image_url",
+                "value": "={{ $json.image_url }}"
+              },
+              {
+                "name": "media_type",
+                "value": "STORIES"
+              }
+            ]
+          }
+        }
+      },
+      "id": "4c751cb3-74e1-42e1-bdba-431ad865bce8",
+      "name": "Container FB Story Image",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        688
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node }}/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=STORIES"
+            },
+            {
+              "name": "image_url",
+              "value": "={{ $json.image_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1b605b55-f3fd-49d5-acbb-00fbf0fa6251",
+      "name": "Container HTTP Story Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        528
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node }}",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "video_url",
+                "value": "={{ $json.video_url }}"
+              },
+              {
+                "name": "media_type",
+                "value": "REELS"
+              }
+            ]
+          }
+        }
+      },
+      "id": "50c9dad2-4f2f-47c6-9b1a-4fb29ef6617f",
+      "name": "Container FB Reels",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1488
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node }}/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=STORIES"
+            },
+            {
+              "name": "video_url",
+              "value": "={{ $json.video_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "25822b4d-d395-4ff1-9af5-b6edfd3d52d6",
+      "name": "Container HTTP Story Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        928
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node }}",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "video_url",
+                "value": "={{ $json.video_url }}"
+              },
+              {
+                "name": "media_type",
+                "value": "STORIES"
+              }
+            ]
+          }
+        }
+      },
+      "id": "de31cc6f-5fdb-4b75-a73a-a817a8a64f93",
+      "name": "Container FB Story Video",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1088
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = [];\nconst parentItem = $input.item;\nconst midias = parentItem.json.Midia || [];\nconst caption = parentItem.json.caption || '';\nconst node = parentItem.json.node_insta || '';\n\nfor (let i = 0; i < midias.length; i++) {\n  items.push({\n    json: {\n      media_url: midias[i],\n      caption: caption,\n      node: node,\n      index: i,\n      total: midias.length\n    }\n  });\n}\nreturn items;"
+      },
+      "id": "61e4bc3e-4ae6-45e2-8e65-ae1005ef33ca",
+      "name": "Split Carousel Images",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $json.media_url }}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          },
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "2ddfcd03-257b-4ddb-a1fe-05ba713ef889",
+      "name": "Fetch IG Media Headers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map((item, idx) => {\n  // Check binary mimeType first (HEAD requests store content-type there)\n  const binaryMime = item.binary && item.binary.data ? item.binary.data.mimeType : '';\n  const headersMime = (item.json.headers || {})[\"content-type\"] || (item.json.headers || {})[\"Content-Type\"] || '';\n  const contentType = binaryMime || headersMime;\n  const isVideo = contentType.toLowerCase().startsWith('video/');\n  \n  // Restore original item details\n  const original = $('Split Carousel Images').all()[idx].json;\n  \n  return {\n    json: {\n      ...original,\n      media_type: isVideo ? 'VIDEO' : 'IMAGE'\n    }\n  };\n});"
+      },
+      "id": "637c6e5b-37b7-4862-8706-6da73a9dd186",
+      "name": "Determine IG Media Type",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.node }}/media?is_carousel_item=true&{{ $json.media_type === \"VIDEO\" ? \"video_url=\" + encodeURIComponent($json.media_url) + \"&media_type=VIDEO\" : \"image_url=\" + encodeURIComponent($json.media_url) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "412deda4-b25f-4c84-9d46-ef4ef1d18201",
+      "name": "Create Carousel Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        1728
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = $input.all().map(item => item.json.id);\nreturn {\n  json: {\n    children_ids: ids.join(',')\n  }\n};"
+      },
+      "id": "04ed677f-05b8-477f-b542-8557e8a47c8a",
+      "name": "Combine Container IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "d440fdb7-080a-4cd2-96da-18623cae3e60",
+      "webhookId": "wait-carousel-proc-webhook",
+      "name": "Wait Carousel Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1536,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔀 Smart Content Router').item.json.node_insta }}/media?media_type=CAROUSEL&children={{ $json.children_ids }}&caption={{ encodeURIComponent($('🔀 Smart Content Router').item.json.caption) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "98dca62f-86cd-4f81-8b2a-7f9eebf29dd6",
+      "name": "Container HTTP Carousel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        1728
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 📸 Image Post Creation",
+        "height": 420,
+        "width": 400
+      },
+      "id": "82eca012-f57f-4393-b6e0-5dc7c27d4dde",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 📱 Story Image Upload",
+        "height": 380,
+        "width": 400
+      },
+      "id": "dcf351de-e872-45b7-9388-4640c8329edf",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🎬 Story Video Upload",
+        "height": 380,
+        "width": 400
+      },
+      "id": "8c015847-c02f-410a-aac1-b887ba376b68",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🎵 Instagram Reels Upload",
+        "height": 380,
+        "width": 400
+      },
+      "id": "186fa5cc-7a95-4ba2-823f-647dc4cace65",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🖼️ Carousel Post (Multiple Images)",
+        "height": 220,
+        "width": 1120
+      },
+      "id": "d5e5681a-e925-420c-805a-a84137235523",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        928,
+        1664
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Variable and Routing Setup",
+        "height": 676,
+        "width": 1460,
+        "color": 3
+      },
+      "id": "7392e9bf-5f65-478c-9286-31a31cfc5c17",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🔄 Container Processing Pipeline\n1. **Create Container** → After Getting Container ID\n2. **Wait & Poll** → Check if container processing is complete  \n3. **Status Check** → Verify FINISHED status before publishing\n4. **Auto-Retry** → If not ready, wait and check again",
+        "height": 540,
+        "width": 1140,
+        "color": 6
+      },
+      "id": "0206fc7c-2f95-4be2-98d4-6dca0cd0d3d8",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 📤 Smart Publishing System\nRoute automatically selected based on post_type prefix:\n- http_* → Uses HTTP Request nodes\n- fb_* → Uses Facebook Graph API nodes",
+        "height": 540,
+        "width": 580,
+        "color": 4
+      },
+      "id": "f5821a44-acb6-4574-8c03-e2eb4a8fefa8",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "682def4c-2cda-4417-9329-682a8a60feed",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f6bc4094-58f5-48ed-8b2c-b7417aeefdd6",
+      "name": "✅ Is Container Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2480,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "da6bcb63-632a-443a-b5b3-a8b6e1c62871",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $('🔀 Smart Content Router').item.json.post_type.split(\"_\")[0] }}",
+              "rightValue": "http"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3b3bcde5-bde0-4bbb-ab7e-9324c9110b3a",
+      "name": "🔀 HTTP vs FB API Router",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2960,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v22.0/17841442220081720/media_publish",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c4541af-89b7-4628-b26f-e006c641de8f",
+      "name": "📤 Publish via HTTP API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3184,
+        784
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $('🔀 Smart Content Router').item.json.node }}",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "7156f828-cb2d-4b7b-88d4-3e28bf80f88e",
+      "name": "📤 Publish via Facebook SDK",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        3184,
+        992
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "f473c068-dcc2-49f4-8738-79f854d3d689",
+      "webhookId": "443f84eb-1e9d-4c77-9a9a-c70290333dca",
+      "name": "⏰ Initial Processing Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2032,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "9f33b695-b6ed-4a16-8d9c-3bfcbee86324",
+      "webhookId": "e9ac0c1d-b415-4160-a6b1-908d2310cb23",
+      "name": "⏰ Retry Wait Loop",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2720,
+        992
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "37f96da8-a8b6-417b-b5cf-7a4df5b4610c",
+              "name": "container_id",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0550b28e-868a-40e7-acdd-6c001f32ed45",
+      "name": "🔍 Check Processing Status",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1808,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "ab388a77-1660-4a64-ba58-bc405444dbd5",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_image"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "be8816f5-ae68-48c3-869e-bc67078298d8",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_image"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "663bacc8-ceeb-4f81-b058-c379eaf6e717",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_story_image"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Story Img"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "99441a51-906e-469a-b98e-64aa43c996ba",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_story_image"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Story Image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "29cfc5f8-e1ae-4c10-8961-2356d7c13195",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_story_video"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP = Story Video"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "578f5df3-23ef-4ef3-9a48-7528c826ea46",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_story_video"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Story Video"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "25e31619-4116-46e0-bfcb-a8d8a030fa68",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_reel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "cf34e931-f798-4c70-af29-9aec7aab8f6c",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_reel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Reels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "02944863-db4b-445f-9c03-382abd9525b9",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "http_carousel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "HTTP - Carousel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "0a17aaa0-8520-442f-9c3f-b4112339a08c",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "fb_carousel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "FB - Carousel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a8ca4a27-de1c-411c-a14a-806ad71903fd",
+      "name": "🔀 Smart Content Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        928,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "status-aprovado",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.Status }}",
+              "rightValue": "Aprovado"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ce64733e-ac45-4984-8dd0-01c831c033a5",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "217b69e3-98ec-49a2-8fde-372dd1bc1848",
+              "name": "node_facebook",
+              "type": "string",
+              "value": "={{ $json.ID_FB }}"
+            },
+            {
+              "id": "ef44e606-e50b-498b-a505-29e950acacba",
+              "name": "node_insta",
+              "value": "={{ $json.ID_IG }}",
+              "type": "string"
+            },
+            {
+              "id": "2caebe7c-a2d3-428e-b129-fcfbe66854e5",
+              "name": "post_type",
+              "type": "string",
+              "value": "={{ ({ 'Imagem': 'http_image', 'Vídeo/Reels': 'http_reel', 'Video/Reels': 'http_reel', 'Carrossel': 'http_carousel' })[$json['Tipo de Post']] || 'http_image' }}"
+            },
+            {
+              "id": "a17a5c94-d9ae-44f8-9d56-fb55d17efe5a",
+              "name": "image_url",
+              "type": "string",
+              "value": "={{ (($url) => $url.includes('drive.google.com') && $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/) ? 'https://drive.google.com/uc?export=download&id=' + $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/)[1] : $url)($json['Link do Google Drive'] || '') }}"
+            },
+            {
+              "id": "6e2c9c54-ce2c-4ea5-8bb2-ae2ae4712427",
+              "name": "caption",
+              "type": "string",
+              "value": "={{ $json['Legenda'] || '' }}"
+            },
+            {
+              "id": "32aa1561-458c-4f64-a854-eab65f9ad1dd",
+              "name": "video_url",
+              "type": "string",
+              "value": "={{ (($url) => $url.includes('drive.google.com') && $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/) ? 'https://drive.google.com/uc?export=download&id=' + $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/)[1] : $url)($json['Link do Google Drive'] || '') }}"
+            },
+            {
+              "id": "c6485101-488b-43db-8708-1a1136292956",
+              "name": "cover_image",
+              "type": "string",
+              "value": "={{ (($url) => $url.includes('drive.google.com') && $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/) ? 'https://drive.google.com/uc?export=download&id=' + $url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/)[1] : $url)($json['Link do Google Drive'] || '') }}"
+            },
+            {
+              "id": "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6",
+              "name": "Midia",
+              "type": "array",
+              "value": "={{ [$json[\"Link do Google Drive\"], $json[\"Link Mídia 2 (Carrossel)\"], $json[\"Link Mídia 3 (Carrossel)\"], $json[\"Link Mídia 4 (Carrossel)\"], $json[\"Link Mídia 5 (Carrossel)\"], $json[\"Link Mídia 6 (Carrossel)\"], $json[\"Link Mídia 7 (Carrossel)\"], $json[\"Link Mídia 8 (Carrossel)\"], $json[\"Link Mídia 9 (Carrossel)\"]].filter(url => url).map(url => url.includes(\"drive.google.com\") && url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/) ? \"https://drive.google.com/uc?export=download&id=\" + url.match(/(?:\\/file\\/d\\/|id=)([a-zA-Z0-9_-]+)/)[1] + \"&export=download\" : url) }}"
+            },
+            {
+              "id": "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d7",
+              "name": "OndePostar",
+              "type": "string",
+              "value": "={{ $json['Onde Postar'] || '' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cb5624c3-597b-4973-bb97-68d292007e9c",
+      "name": "⚙️ Configure Post Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "={{ (() => { const d = $json['Data de Publicação']; if (!d) return $now.toISO(); const num = parseFloat(d); if (!isNaN(num) && num > 40000 && num < 60000) { const utcTimestamp = (num - 25569) * 86400 * 1000; return new Date(utcTimestamp).toISOString().replace('Z', '-03:00'); } if (typeof d === 'string') { const parts = d.match(/^(\\d{2})\\/(\\d{2})\\/(\\d{4})\\s+(\\d{2}):(\\d{2})$/); if (parts) { return `${parts[3]}-${parts[2]}-${parts[1]}T${parts[4]}:${parts[5]}:00-03:00`; } } try { const parsed = new Date(d); if (!isNaN(parsed.getTime())) { return parsed.toISOString(); } } catch (e) {} return $now.toISO(); })() }}"
+      },
+      "id": "b64cb550-59f4-4b60-91e4-ee07fb2864fa",
+      "webhookId": "fac3b7d8-1e7c-4bbe-9f7e-d7d78b4a8277",
+      "name": "⏰ Wait Until Publish Time",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "post-instagram",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.OndePostar }}",
+              "rightValue": "Instagram"
+            },
+            {
+              "id": "post-ambos-ig",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.OndePostar }}",
+              "rightValue": "Ambos"
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "7494028b-1751-441e-82e7-5804b251d283",
+      "name": "If Post Instagram",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "post-facebook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.OndePostar }}",
+              "rightValue": "Facebook"
+            },
+            {
+              "id": "post-ambos-fb",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.OndePostar }}",
+              "rightValue": "Ambos"
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "4e7ae59f-2144-4256-9733-99c23614a398",
+      "name": "If Post Facebook",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "or",
+                "conditions": [
+                  {
+                    "id": "fb-switch-image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "image"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Foto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "or",
+                "conditions": [
+                  {
+                    "id": "fb-switch-reel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "reel"
+                  },
+                  {
+                    "id": "fb-switch-video",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "video"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Vídeo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "combinator": "or",
+                "conditions": [
+                  {
+                    "id": "fb-switch-carousel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "leftValue": "={{ $json.post_type }}",
+                    "rightValue": "carousel"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "Carrossel"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aebadf75-4ec6-4fd4-b92b-25574e765bf0",
+      "name": "Facebook Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        928,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "hostUrl": "graph-video.facebook.com",
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node_facebook }}",
+        "edge": "videos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "description",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "file_url",
+                "value": "={{ $json.video_url }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "d26637f4-3724-4777-858a-e2690a0084dd",
+      "name": "Facebook Publish Video",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        2000
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = [];\nconst parentItem = $input.item;\nconst midias = parentItem.json.Midia || [];\nconst caption = parentItem.json.caption || '';\nconst node_facebook = parentItem.json.node_facebook || '';\n\nfor (let i = 0; i < midias.length; i++) {\n  items.push({\n    json: {\n      media_url: midias[i],\n      caption: caption,\n      node_facebook: node_facebook,\n      index: i,\n      total: midias.length\n    }\n  });\n}\nreturn items;"
+      },
+      "id": "56fe6f1d-7e3f-4ec4-96cc-e94047496af2",
+      "name": "Split FB Carousel Images",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $json.media_url }}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          },
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "f700b498-1b8a-400b-8c44-5c21a97c359b",
+      "name": "Fetch FB Media Headers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map((item, idx) => {\n  // Check binary mimeType first (HEAD requests store content-type there)\n  const binaryMime = item.binary && item.binary.data ? item.binary.data.mimeType : '';\n  const headersMime = (item.json.headers || {})[\"content-type\"] || (item.json.headers || {})[\"Content-Type\"] || '';\n  const contentType = binaryMime || headersMime;\n  const isVideo = contentType.toLowerCase().startsWith('video/');\n  \n  // Restore original item details\n  const original = $('Split FB Carousel Images').all()[idx].json;\n  \n  return {\n    json: {\n      ...original,\n      media_type: isVideo ? 'VIDEO' : 'IMAGE'\n    }\n  };\n});"
+      },
+      "id": "cbc2331b-c026-49d8-a193-c5817c3da5d0",
+      "name": "Determine FB Media Type",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst videos = items.filter(item => item.json.media_type === 'VIDEO');\nconst images = items.filter(item => item.json.media_type === 'IMAGE');\n\nif (videos.length > 0) {\n  return [{\n    json: {\n      has_video: true,\n      video_url: videos[0].json.media_url,\n      caption: videos[0].json.caption,\n      node_facebook: videos[0].json.node_facebook\n    }\n  }];\n} else {\n  return images.map(item => ({\n    json: {\n      has_video: false,\n      image_url: item.json.media_url,\n      caption: item.json.caption,\n      node_facebook: item.json.node_facebook\n    }\n  }));\n}\n"
+      },
+      "id": "d2f10261-9e11-4995-b06e-5e5128134d02",
+      "name": "Check FB Carousel Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "fb-carousel-video-check",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "boolean",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.has_video }}",
+              "rightValue": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e64f382a-d0cf-47de-847b-0b9041037ec7",
+      "name": "FB Carousel Has Video?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1808,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node_facebook }}",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.image_url }}"
+              },
+              {
+                "name": "published",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      },
+      "id": "d1b65e9e-9ce1-475a-8513-a94ca3459999",
+      "name": "Create FB Photo Container",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        2128
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = $input.all().map(item => ({ media_fbid: item.json.id }));\nreturn {\n  json: {\n    attached_media: JSON.stringify(ids)\n  }\n};"
+      },
+      "id": "2c851120-2349-4444-a0b4-e9f61edd8792",
+      "name": "Combine FB Photo IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2080,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $('Split FB Carousel Images').item.json.node_facebook }}",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "={{ $('Split FB Carousel Images').item.json.caption }}"
+              },
+              {
+                "name": "attached_media",
+                "value": "={{ $json.attached_media }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "1ffc6964-e3af-4b17-be1c-c42aa4897529",
+      "name": "Publish FB Album/Carousel Post",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        2128
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v22.0/{{ $('🔍 Check Processing Status').item.json.container_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e7f34a2-d445-4d06-ba64-a355c99d15a0",
+      "name": "🔍 Check Processing Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2256,
+        880
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HK31nwLihb2WOzB3",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 👨‍💻 Creator Information\n\n**Created by:** Lakshit Ukani  \n🔗 **LinkedIn:** [Connect with me](https://www.linkedin.com/in/lakshit-ukani/)\n🔗 **Youtube:** [Subscribe to my Channel](https://www.youtube.com/@lakshit-ukani?sub_confirmation=1)\n\n### 🤝 Community & Support\n💬 **Join Community:** [Skool Community Link](https://www.skool.com/ai-automation-club-7843)   \n📚 **Documentation:** [Full Guide & FAQ](https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/media#creating)  \n\n### 📞 Need Help?\n- **Quick Questions:** Comment on the YouTube video\n- **Workflow Issues:** Post in our community  \n- **Business Inquiries:** Connect via LinkedIn",
+        "height": 380,
+        "width": 460,
+        "color": 2
+      },
+      "id": "8a91e943-0c14-4a07-bca7-12ab1e8fa9dc",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 📘 Facebook Page Publishing\n\nDirect publishing of posts to Facebook Page (without processing queue):\n- **Photo**: Published directly to page photos\n- **Video**: Published directly to page videos\n- **Carousel**: If the carousel contains videos, the first video is automatically published as a single video post (API limitation fallback). If it contains only photos, they are uploaded unpublished and published together as a feed post.",
+        "height": 460,
+        "width": 1332,
+        "color": 6
+      },
+      "id": "99d8e393-0253-4a44-8f98-0f48f59a89b1",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  delete item.json.node_insta; \n}\nreturn $input.all();"
+      },
+      "id": "fd577faa-f4c8-4acd-ba42-f842b80b0192",
+      "name": "remove node insta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  delete item.json.node_facebook; \n}\nreturn $input.all();"
+      },
+      "id": "51f3d7a1-e610-4e5f-bc5a-73534712beba",
+      "name": "remove node face",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "list",
+          "cachedResultName": "Cópia de Planilha Automacao Post",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU/edit#gid=354284204"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Publicado",
+            "Quando foi publicado": "={{ $now.setZone('America/Sao_Paulo').format('dd/MM/yyyy HH:mm') }}",
+            "ID": "={{ $('Google Sheets Trigger').item.json.ID }}",
+            "Progresso": "100"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ID_FB",
+              "displayName": "ID_FB",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ID_IG",
+              "displayName": "ID_IG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Onde Postar",
+              "displayName": "Onde Postar",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo de Post",
+              "displayName": "Tipo de Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Legenda",
+              "displayName": "Legenda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link do Google Drive",
+              "displayName": "Link do Google Drive",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 2 (Carrossel)",
+              "displayName": "Link Mídia 2 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 3 (Carrossel)",
+              "displayName": "Link Mídia 3 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 4 (Carrossel)",
+              "displayName": "Link Mídia 4 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 5 (Carrossel)",
+              "displayName": "Link Mídia 5 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 6 (Carrossel)",
+              "displayName": "Link Mídia 6 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 7 (Carrossel)",
+              "displayName": "Link Mídia 7 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 8 (Carrossel)",
+              "displayName": "Link Mídia 8 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link Mídia 9 (Carrossel)",
+              "displayName": "Link Mídia 9 (Carrossel)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Data de Publicação",
+              "displayName": "Data de Publicação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quando foi publicado",
+              "displayName": "Quando foi publicado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Progresso",
+              "displayName": "Progresso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "dfe38dca-3c98-4fe4-ba55-900ce43dbed2",
+      "name": "Update Google Sheets Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3344,
+        896
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ByhccJEjcXl1m588",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "list",
+          "cachedResultName": "Cópia de Planilha Automacao Post",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58/edit#gid=354284204"
+        },
+        "event": "rowUpdate",
+        "options": {
+          "columnsToWatch": [
+            "Status"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        880
+      ],
+      "id": "5dcd90df-b935-480c-a042-78a9baf41c4e",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "iwHmWDgAmqXfBn6z",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "={{ $json.node_facebook }}",
+        "edge": "photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $json.image_url }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "be460e5e-e2d2-408a-98c4-52b3af54aac5",
+      "name": "Facebook Publish Photo1",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1888
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hABzChbukhwZVaqx",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Google Sheets Trigger').item.json.ID }}",
+            "Progresso": "10"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Progresso",
+              "displayName": "Progresso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "progress-10-1782849558580",
+      "name": "📊 Progresso 10%",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        72,
+        880
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ByhccJEjcXl1m588",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Google Sheets Trigger').item.json.ID }}",
+            "Progresso": "25"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Progresso",
+              "displayName": "Progresso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "progress-25-1782849558580",
+      "name": "📊 Progresso 25%",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        256,
+        880
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ByhccJEjcXl1m588",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Google Sheets Trigger').item.json.ID }}",
+            "Progresso": "50"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Progresso",
+              "displayName": "Progresso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "progress-50-1782849558580",
+      "name": "📊 Progresso 50%",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        880
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ByhccJEjcXl1m588",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 354284204,
+          "mode": "list",
+          "cachedResultName": "Calendário de Automação"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Google Sheets Trigger').item.json.ID }}",
+            "Progresso": "75"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Progresso",
+              "displayName": "Progresso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "progress-75-1782849558580",
+      "name": "📊 Progresso 75%",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1920,
+        880
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ByhccJEjcXl1m588",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Container FB Image": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container FB Reels": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Retry Wait Loop": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Image": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Reels": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Container HTTP Carousel": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Is Container Ready?": {
+      "main": [
+        [
+          {
+            "node": "🔀 HTTP vs FB API Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⏰ Retry Wait Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 Smart Content Router": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Container FB Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          {
+            "node": "Container HTTP Reels",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Container FB Reels",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Carousel Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Carousel Images": {
+      "main": [
+        [
+          {
+            "node": "Fetch IG Media Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch IG Media Headers": {
+      "main": [
+        [
+          {
+            "node": "Determine IG Media Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine IG Media Type": {
+      "main": [
+        [
+          {
+            "node": "Create Carousel Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Carousel Container": {
+      "main": [
+        [
+          {
+            "node": "Wait Carousel Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Carousel Processing": {
+      "main": [
+        [
+          {
+            "node": "Combine Container IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Container IDs": {
+      "main": [
+        [
+          {
+            "node": "Container HTTP Carousel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔀 HTTP vs FB API Router": {
+      "main": [
+        [
+          {
+            "node": "📤 Publish via HTTP API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📤 Publish via Facebook SDK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Initial Processing Wait": {
+      "main": [
+        [
+          {
+            "node": "🔍 Check Processing Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status": {
+      "main": [
+        [
+          {
+            "node": "⏰ Initial Processing Wait",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Progresso 75%",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Check Processing Status1": {
+      "main": [
+        [
+          {
+            "node": "✅ Is Container Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⚙️ Configure Post Settings": {
+      "main": [
+        [
+          {
+            "node": "⏰ Wait Until Publish Time",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Progresso 25%",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ Wait Until Publish Time": {
+      "main": [
+        [
+          {
+            "node": "If Post Instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If Post Facebook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Progresso 50%",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Post Instagram": {
+      "main": [
+        [
+          {
+            "node": "remove node face",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Post Facebook": {
+      "main": [
+        [
+          {
+            "node": "remove node insta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Switch": {
+      "main": [
+        [
+          {
+            "node": "Facebook Publish Photo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Facebook Publish Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split FB Carousel Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split FB Carousel Images": {
+      "main": [
+        [
+          {
+            "node": "Fetch FB Media Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch FB Media Headers": {
+      "main": [
+        [
+          {
+            "node": "Determine FB Media Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine FB Media Type": {
+      "main": [
+        [
+          {
+            "node": "Check FB Carousel Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check FB Carousel Content": {
+      "main": [
+        [
+          {
+            "node": "FB Carousel Has Video?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Carousel Has Video?": {
+      "main": [
+        [
+          {
+            "node": "Facebook Publish Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create FB Photo Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create FB Photo Container": {
+      "main": [
+        [
+          {
+            "node": "Combine FB Photo IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine FB Photo IDs": {
+      "main": [
+        [
+          {
+            "node": "Publish FB Album/Carousel Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "⚙️ Configure Post Settings",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Progresso 10%",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "remove node insta": {
+      "main": [
+        [
+          {
+            "node": "Facebook Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "remove node face": {
+      "main": [
+        [
+          {
+            "node": "🔀 Smart Content Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📤 Publish via HTTP API": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📤 Publish via Facebook SDK": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Publish Video": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Publish Photo1": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish FB Album/Carousel Post": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "35d0460d-8cf5-440e-9982-a8e29509d2b1",
+  "meta": {
+    "instanceId": "b6fc64b845a8813333c4998488527d78b150240902f40442f29d914f8d2ddf44"
+  },
+  "id": "7AmAGeXsJjYZqkCu",
+  "tags": []
+}

@@ -1,0 +1,76 @@
+{
+  "name": "API Dashboard Força Digital",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "posts",
+        "responseMode": "lastNode",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "dashboard-posts-webhook-id",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "documentId": {
+          "__rl": true,
+          "value": "1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "354284204",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        450,
+        300
+      ],
+      "typeVersion": 4,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "1",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "active": false,
+  "versionId": "api-dashboard-v1"
+}
