@@ -200,3 +200,13 @@
   background: rgba(239, 68, 68, 0.1);
   color: #ef4444;
 }
+
+@media (max-width: 768px) {
+  .post-card {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+  .post-title {
+    font-size: 1rem;
+  }
+}

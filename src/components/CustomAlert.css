@@ -115,3 +115,9 @@
     transform: translateY(0) scale(1);
   }
 }
+
+@media (max-width: 380px) {
+  .custom-alert-actions {
+    flex-direction: column;
+  }
+}
