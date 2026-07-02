@@ -3,39 +3,23 @@ import PostCard from './PostCard';
 import CustomAlert from './CustomAlert';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
-
-// Google Sheets Config
 const SHEET_ID = '1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58';
 const SHEET_GID = '354284204';
-
-// How often to refresh data (in ms) — 10 seconds for near real-time updates
 const REFRESH_INTERVAL = 10000;
-
-/**
- * Parses a Google Visualization API date string like "Date(2026,5,30,14,10,0)"
- * into a formatted date string. Month is 0-indexed in gviz format.
- */
 const parseGvizDate = (value) => {
   if (!value) return 'Sem data';
-  
-  // If it's already a normal string date, return it
   if (typeof value === 'string' && !value.startsWith('Date(')) {
     return value;
   }
-
-  // Extract from "Date(year, month, day, hour, minute, second)"
   const str = typeof value === 'string' ? value : String(value);
   const match = str.match(/Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+)(?:,(\d+))?)?\)/);
   if (!match) return str;
-
   const year = parseInt(match[1]);
-  const month = parseInt(match[2]); // 0-indexed
+  const month = parseInt(match[2]); 
   const day = parseInt(match[3]);
   const hour = match[4] ? parseInt(match[4]) : 0;
   const minute = match[5] ? parseInt(match[5]) : 0;
-
   const date = new Date(year, month, day, hour, minute);
-  
   return date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
@@ -44,27 +28,18 @@ const parseGvizDate = (value) => {
     minute: '2-digit',
   });
 };
-
-/**
- * Fetches ALL rows from a public Google Sheet using the Google Visualization API.
- * The sheet must be shared as "Anyone with the link can view".
- */
 const fetchGoogleSheet = async () => {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
   const response = await fetch(url);
   const text = await response.text();
-
   const jsonString = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
   if (!jsonString || !jsonString[1]) {
     throw new Error('Formato de resposta inesperado do Google Sheets');
   }
-
   const data = JSON.parse(jsonString[1]);
   const cols = data.table.cols;
   const rows = data.table.rows;
-
   const headers = cols.map(col => col.label).filter(h => h);
-
   const result = rows
     .filter(row => row.c && row.c[0] && row.c[0].v)
     .map(row => {
@@ -72,13 +47,11 @@ const fetchGoogleSheet = async () => {
       headers.forEach((header, i) => {
         const cell = row.c[i];
         if (cell) {
-          // For date columns, preserve the raw value for parsing
           if (cell.v !== null && cell.v !== undefined) {
-            obj[header] = cell.f || String(cell.v); // use formatted value (cell.f) if available
+            obj[header] = cell.f || String(cell.v); 
           } else {
             obj[header] = '';
           }
-          // Also store the raw value for date parsing
           if (cell.v && String(cell.v).startsWith('Date(')) {
             obj[header] = String(cell.v);
           }
@@ -88,11 +61,8 @@ const fetchGoogleSheet = async () => {
       });
       return obj;
     });
-
   return result;
 };
-
-// Mock data fallback
 const MOCK_DATA = [
   {
     id: 1,
@@ -124,7 +94,6 @@ const MOCK_DATA = [
     errorMessage: "Falha na autenticação da conta."
   }
 ];
-
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -132,19 +101,15 @@ const Dashboard = () => {
   const [lastUpdate, setLastUpdate] = useState(null);
   const [hiddenPosts, setHiddenPosts] = useState(() => JSON.parse(localStorage.getItem('hiddenPosts') || '[]'));
   const [alertConfig, setAlertConfig] = useState({ isOpen: false, type: null, targetId: null });
-  const n8nErrors = useN8nErrors(); // Real-time error detection from n8n API
+  const { errors: n8nErrors, isWorkflowActive } = useN8nErrors(); 
   const isFirstLoad = useRef(true);
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Only show loading spinner on first load, not on background refreshes
         if (isFirstLoad.current) {
           setLoading(true);
         }
-
         const rawData = await fetchGoogleSheet();
-
         const formattedData = rawData.map((row, index) => ({
           id: row.ID || index,
           title: row.Legenda ? (row.Legenda.length > 50 ? row.Legenda.substring(0, 50) + "..." : row.Legenda) : "Sem título",
@@ -153,33 +118,24 @@ const Dashboard = () => {
           scheduledDate: parseGvizDate(row["Data de Publicação"] || row["Data de Publicaçao"] || ""),
           client: row.Cliente || "",
           postType: row["Tipo de Post"] || "",
-          progress: parseInt(row.Progresso) || parseInt(row["Progresso "]) || 0, // Real progress from n8n
+          progress: parseInt(row.Progresso) || parseInt(row["Progresso "]) || 0, 
           errorMessage: row.Erro || null
         }));
-
-        // Load cleared errors from localStorage
         const clearedErrors = JSON.parse(localStorage.getItem('clearedN8nErrors') || '{}');
         let clearedErrorsUpdated = false;
-
         const activeStatuses = ['aprovado', 'agendado', 'postando'];
         const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
         const now = Date.now();
-
         const postsWithN8nErrors = formattedData.map(post => {
           const n8nError = n8nErrors[String(post.id)];
-          
           if (n8nError) {
             const isActive = activeStatuses.includes(post.status.toLowerCase());
             const isCleared = clearedErrors[post.id] === n8nError.stoppedAt;
             const isRecent = (now - n8nError.stoppedAt) < TWENTY_FOUR_HOURS;
-
-            // If the post is no longer active but has an uncleared error, clear it!
             if (!isActive && !isCleared) {
               clearedErrors[post.id] = n8nError.stoppedAt;
               clearedErrorsUpdated = true;
             }
-
-            // Show error ONLY if it's active, recent, and hasn't been cleared
             if (isActive && isRecent && !isCleared) {
               return {
                 ...post,
@@ -190,11 +146,9 @@ const Dashboard = () => {
           }
           return post;
         });
-
         if (clearedErrorsUpdated) {
           localStorage.setItem('clearedN8nErrors', JSON.stringify(clearedErrors));
         }
-
         setPosts(postsWithN8nErrors.reverse());
         setError(null);
         setLastUpdate(new Date());
@@ -209,23 +163,17 @@ const Dashboard = () => {
         }
       }
     };
-
     fetchPosts();
-    
-    // Refresh frequently so status changes from n8n are picked up quickly
     const interval = setInterval(fetchPosts, REFRESH_INTERVAL);
     return () => clearInterval(interval);
   }, [n8nErrors]);
-
   const visiblePosts = posts.filter(p => !hiddenPosts.includes(String(p.id)));
-
   const stats = {
     total: visiblePosts.length,
     success: visiblePosts.filter(p => ['publicado', 'sucesso'].includes(p.status.toLowerCase())).length,
     pending: visiblePosts.filter(p => ['rascunho', 'pendente', 'postando', 'aprovado', 'agendado'].includes(p.status.toLowerCase())).length,
     error: visiblePosts.filter(p => p.status.toLowerCase() === 'erro').length,
   };
-
   const handleClearAllRequest = () => {
     setAlertConfig({
       isOpen: true,
@@ -236,7 +184,6 @@ const Dashboard = () => {
       confirmText: 'Sim, limpar todos',
     });
   };
-
   const handleDeleteRequest = (id) => {
     setAlertConfig({
       isOpen: true,
@@ -247,7 +194,6 @@ const Dashboard = () => {
       confirmText: 'Ocultar post',
     });
   };
-
   const handleConfirmAlert = () => {
     if (alertConfig.type === 'clear_all') {
       const allIds = posts.map(p => String(p.id));
@@ -261,7 +207,6 @@ const Dashboard = () => {
     }
     setAlertConfig({ ...alertConfig, isOpen: false });
   };
-
   return (
     <main className="dashboard">
       <div className="stats-container animate-fade-in">
@@ -282,7 +227,6 @@ const Dashboard = () => {
           <span className="stat-label">Com Erro</span>
         </div>
       </div>
-
       <div className="posts-header animate-fade-in" style={{ animationDelay: '0.2s' }}>
         <h2>Últimas Postagens</h2>
         <div className="header-meta">
@@ -295,19 +239,28 @@ const Dashboard = () => {
           </button>
           {loading && <span className="loading-spinner">Atualizando...</span>}
           {lastUpdate && !loading && (
-            <span className="last-update">
-              Atualizado às {lastUpdate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-            </span>
+            <>
+              <span className="last-update">
+                Atualizado às {lastUpdate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+              {isWorkflowActive ? (
+                <span className="last-update" style={{ color: 'var(--status-pending)', fontWeight: 600 }}>
+                  ⏱️ O robô verifica a planilha a cada 1 minuto
+                </span>
+              ) : (
+                <span className="last-update" style={{ color: 'var(--status-error)', fontWeight: 600 }}>
+                  ⏸️ Robô de postagem pausado
+                </span>
+              )}
+            </>
           )}
         </div>
       </div>
-
       {error && !loading && (
         <div className="error-banner glass-panel animate-fade-in" style={{ animationDelay: '0.3s' }}>
           {error} (Mostrando dados de demonstração)
         </div>
       )}
-
       <div className="posts-grid">
         {visiblePosts.map((post, index) => (
           <PostCard 
@@ -318,7 +271,6 @@ const Dashboard = () => {
           />
         ))}
       </div>
-
       <CustomAlert 
         isOpen={alertConfig.isOpen}
         title={alertConfig.title}
@@ -330,5 +282,4 @@ const Dashboard = () => {
     </main>
   );
 };
-
 export default Dashboard;
