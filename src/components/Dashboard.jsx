@@ -3,8 +3,8 @@ import PostCard from './PostCard';
 import CustomAlert from './CustomAlert';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
-const SHEET_ID = '1T8n1DXK7bmadmxSvCMIJmsLbAyVNhJbzedCL-GMRX58';
-const SHEET_GID = '354284204';
+const SHEET_ID = '1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU';
+const SHEET_GID = '0';
 const REFRESH_INTERVAL = 10000;
 const parseGvizDate = (value) => {
   if (!value) return 'Sem data';
@@ -243,17 +243,11 @@ const Dashboard = () => {
               <span className="last-update">
                 Atualizado às {lastUpdate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
               </span>
-              {isWorkflowActive ? (
-                <span className="last-update" style={{ color: 'var(--status-pending)', fontWeight: 600 }}>
-                  ⏱️ O robô verifica a planilha a cada 1 minuto
-                </span>
-              ) : (
-                <span className="last-update" style={{ color: 'var(--status-error)', fontWeight: 600 }}>
-                  ⏸️ Robô de postagem pausado
-                </span>
-              )}
             </>
           )}
+          <span className="last-update" style={{ color: 'var(--status-pending)', fontWeight: 600 }}>
+            ⏱️ O robô verifica a planilha a cada 1 minuto
+          </span>
         </div>
       </div>
       {error && !loading && (
