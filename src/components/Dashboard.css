@@ -235,12 +235,44 @@
   top: calc(100% + 0.5rem);
   left: 0;
   width: 100%;
-  background: #1e293b;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
   border-radius: 8px;
   box-shadow: 0 10px 25px -5px rgba(0,0,0,0.8);
   z-index: 50;
   overflow: hidden;
+}
+
+.view-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-right: 12px;
+}
+
+.view-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.view-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.view-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .dropdown-item {

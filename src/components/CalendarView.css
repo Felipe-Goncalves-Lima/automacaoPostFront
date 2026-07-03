@@ -1,0 +1,154 @@
+.calendar-container {
+  width: 100%;
+  background: rgba(25, 25, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.calendar-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.calendar-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-collapse: collapse;
+}
+
+.calendar-day-header {
+  padding: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.calendar-day {
+  min-height: 120px;
+  padding: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calendar-day:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-day:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.calendar-day.other-month {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.calendar-day.other-month .day-number {
+  opacity: 0.3;
+}
+
+.calendar-day.today {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.calendar-day.today .day-number {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.day-number {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+  text-align: right;
+  display: block;
+}
+
+.calendar-post-pill {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.1s, filter 0.1s;
+}
+
+.calendar-post-pill:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.2);
+}
+
+.calendar-post-pill.status-publicado,
+.calendar-post-pill.status-sucesso {
+  background: rgba(16, 185, 129, 0.2);
+  border-left: 2px solid #10b981;
+}
+
+.calendar-post-pill.status-erro {
+  background: rgba(239, 68, 68, 0.2);
+  border-left: 2px solid #ef4444;
+}
+
+.calendar-post-pill.status-aprovado {
+  background: rgba(59, 130, 246, 0.2);
+  border-left: 2px solid #3b82f6;
+}
+
+.calendar-post-pill.status-pendente,
+.calendar-post-pill.status-rascunho,
+.calendar-post-pill.status-agendado,
+.calendar-post-pill.status-postando {
+  background: rgba(245, 158, 11, 0.2);
+  border-left: 2px solid #f59e0b;
+}
+
+.platform-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  flex-shrink: 0;
+}

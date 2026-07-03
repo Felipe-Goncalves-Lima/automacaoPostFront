@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import PostCard from './PostCard';
 import CustomAlert from './CustomAlert';
 import PreviewModal from './PreviewModal';
+import CalendarView from './CalendarView';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
 const SHEET_ID = '1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU';
 const SHEET_GID = '0';
-const REFRESH_INTERVAL = 10000;
+const REFRESH_INTERVAL = 5000;
 const parseGvizDate = (value) => {
   if (!value) return 'Sem data';
   if (typeof value === 'string' && !value.startsWith('Date(')) {
@@ -29,8 +30,16 @@ const parseGvizDate = (value) => {
     minute: '2-digit',
   });
 };
+
+const parseGvizDateObj = (value) => {
+  if (!value) return null;
+  const str = typeof value === 'string' ? value : String(value);
+  const match = str.match(/Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+)(?:,(\d+))?)?\)/);
+  if (!match) return null;
+  return new Date(parseInt(match[1]), parseInt(match[2]), parseInt(match[3]), match[4] ? parseInt(match[4]) : 0, match[5] ? parseInt(match[5]) : 0);
+};
 const fetchGoogleSheet = async () => {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}&_=${Date.now()}`;
   const response = await fetch(url);
   const text = await response.text();
   const jsonString = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
@@ -151,6 +160,8 @@ const Dashboard = () => {
   const [filterStatus, setFilterStatus] = useState('Todos');
   const [filterPlatform, setFilterPlatform] = useState('Todas');
   const [searchTerm, setSearchTerm] = useState('');
+  const [viewMode, setViewMode] = useState('grid');
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -176,6 +187,7 @@ const Dashboard = () => {
           platform: row["Onde Postar"] || "N/A",
           status: row.Status || "Pendente",
           scheduledDate: parseGvizDate(row["Data de Publicação"] || row["Data de Publicaçao"] || ""),
+          scheduledDateObj: parseGvizDateObj(row["Data de Publicação"] || row["Data de Publicaçao"] || ""),
           client: row.Cliente || "",
           postType: row["Tipo de Post"] || "",
           progress: parseInt(row.Progresso) || parseInt(row["Progresso "]) || 0, 
@@ -344,6 +356,22 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="filters-container glass-panel animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="view-toggle">
+          <button 
+            className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+            onClick={() => setViewMode('grid')}
+            title="Visualização em Grade"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </button>
+          <button 
+            className={`view-btn ${viewMode === 'calendar' ? 'active' : ''}`}
+            onClick={() => setViewMode('calendar')}
+            title="Visualização em Calendário"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </button>
+        </div>
         <input 
           type="text" 
           className="filter-input"
@@ -377,17 +405,26 @@ const Dashboard = () => {
           {error} (Mostrando dados de demonstração)
         </div>
       )}
-      <div className="posts-grid">
-        {visiblePosts.map((post, index) => (
-          <PostCard 
-            key={post.id || index} 
-            post={post} 
-            index={index + 3} 
-            onDelete={() => handleDeleteRequest(post.id)} 
-            onPreview={() => setPreviewPost(post)}
-          />
-        ))}
-      </div>
+      
+      {viewMode === 'grid' ? (
+        <div className="posts-grid">
+          {visiblePosts.map((post, index) => (
+            <PostCard 
+              key={post.id || index} 
+              post={post} 
+              index={index + 3} 
+              onDelete={() => handleDeleteRequest(post.id)} 
+              onPreview={() => setPreviewPost(post)}
+            />
+          ))}
+        </div>
+      ) : (
+        <CalendarView 
+          posts={visiblePosts}
+          onPreview={(post) => setPreviewPost(post)}
+        />
+      )}
+
       {visiblePosts.length === 0 && !loading && !error && (
         <div className="empty-state animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <svg className="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
