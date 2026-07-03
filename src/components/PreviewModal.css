@@ -1,0 +1,388 @@
+.preview-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.ambos-switcher {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 6px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1010;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.switcher-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.switcher-btn:hover {
+  opacity: 0.9;
+}
+
+.switcher-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+}
+
+.preview-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #000;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 4px solid #333;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.preview-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.preview-close-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.mockup-insta {
+  background: #fff;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+}
+
+.insta-header {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #efefef;
+}
+
+.insta-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insta-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+}
+
+.insta-username {
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.insta-image-container {
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  max-height: 500px;
+}
+
+.insta-image-container img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.insta-actions {
+  padding: 12px;
+  display: flex;
+  gap: 16px;
+}
+
+.insta-caption {
+  padding: 0 12px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.insta-caption strong {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+/* LinkedIn Styles */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.mockup-facebook {
+  background: #f0f2f5;
+  color: #050505;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fb-card {
+  background: #fff;
+  margin-top: 8px;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fb-header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px 12px;
+}
+
+.fb-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  overflow: hidden;
+}
+
+.fb-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fb-info {
+  margin-left: 10px;
+}
+
+.fb-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #050505;
+  margin: 0;
+}
+
+.fb-sub {
+  font-size: 13px;
+  color: #65676B;
+  margin: 2px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fb-caption {
+  padding: 0 16px 12px;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.fb-image-container {
+  width: 100%;
+  background: #000;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fb-image-container img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.fb-grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4/3;
+  background: #fff;
+}
+
+.fb-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+}
+
+.fb-grid-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fb-grid-more {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.fb-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.fb-grid-3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.fb-grid-3 .fb-grid-item:first-child {
+  grid-row: 1 / span 2;
+}
+
+.fb-grid-4, .fb-grid-5 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.fb-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px;
+  border-top: 1px solid #ced0d4;
+  margin-top: 4px;
+}
+
+.fb-action-btn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0;
+  color: #65676B;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fb-action-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+  font-size: 14px;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-arrow.prev {
+  left: 8px;
+}
+
+.carousel-arrow.next {
+  right: 8px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.carousel-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.carousel-dots .dot.active {
+  background: #fff;
+  transform: scale(1.2);
+}

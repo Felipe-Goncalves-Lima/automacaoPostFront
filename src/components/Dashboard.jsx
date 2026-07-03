@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import PostCard from './PostCard';
 import CustomAlert from './CustomAlert';
+import PreviewModal from './PreviewModal';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
 const SHEET_ID = '1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU';
@@ -94,6 +95,49 @@ const MOCK_DATA = [
     errorMessage: "Falha na autenticação da conta."
   }
 ];
+const CustomDropdown = ({ options, value, onChange, placeholder }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  const selectedOption = options.find(o => o.value === value);
+  return (
+    <div className="custom-dropdown" ref={dropdownRef}>
+      <div 
+        className={`dropdown-header ${isOpen ? 'open' : ''}`} 
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{selectedOption ? selectedOption.label : placeholder}</span>
+        <svg className={`chevron ${isOpen ? 'open' : ''}`} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+      {isOpen && (
+        <div className="dropdown-list animate-fade-in">
+          {options.map((opt) => (
+            <div 
+              key={opt.value} 
+              className={`dropdown-item ${value === opt.value ? 'selected' : ''}`}
+              onClick={() => {
+                onChange(opt.value);
+                setIsOpen(false);
+              }}
+            >
+              {opt.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,8 +145,12 @@ const Dashboard = () => {
   const [lastUpdate, setLastUpdate] = useState(null);
   const [hiddenPosts, setHiddenPosts] = useState(() => JSON.parse(localStorage.getItem('hiddenPosts') || '[]'));
   const [alertConfig, setAlertConfig] = useState({ isOpen: false, type: null, targetId: null });
+  const [previewPost, setPreviewPost] = useState(null);
   const { errors: n8nErrors, isWorkflowActive } = useN8nErrors(); 
   const isFirstLoad = useRef(true);
+  const [filterStatus, setFilterStatus] = useState('Todos');
+  const [filterPlatform, setFilterPlatform] = useState('Todas');
+  const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -113,6 +161,18 @@ const Dashboard = () => {
         const formattedData = rawData.map((row, index) => ({
           id: row.ID || index,
           title: row.Legenda ? (row.Legenda.length > 50 ? row.Legenda.substring(0, 50) + "..." : row.Legenda) : "Sem título",
+          fullCaption: row.Legenda || "",
+          imageLinks: [
+            row["Link do Google Drive"],
+            row["Link Mídia 2 (Carrossel)"],
+            row["Link Mídia 3 (Carrossel)"],
+            row["Link Mídia 4 (Carrossel)"],
+            row["Link Mídia 5 (Carrossel)"],
+            row["Link Mídia 6 (Carrossel)"],
+            row["Link Mídia 7 (Carrossel)"],
+            row["Link Mídia 8 (Carrossel)"],
+            row["Link Mídia 9 (Carrossel)"]
+          ].filter(link => link && String(link).trim() !== ""),
           platform: row["Onde Postar"] || "N/A",
           status: row.Status || "Pendente",
           scheduledDate: parseGvizDate(row["Data de Publicação"] || row["Data de Publicaçao"] || ""),
@@ -167,7 +227,26 @@ const Dashboard = () => {
     const interval = setInterval(fetchPosts, REFRESH_INTERVAL);
     return () => clearInterval(interval);
   }, [n8nErrors]);
-  const visiblePosts = posts.filter(p => !hiddenPosts.includes(String(p.id)));
+  const unhiddenPosts = posts.filter(p => !hiddenPosts.includes(String(p.id)));
+  const uniquePlatforms = [...new Set(unhiddenPosts.map(p => p.platform).filter(Boolean))];
+  const sortedPlatforms = uniquePlatforms.sort((a, b) => {
+    if (a.toLowerCase() === 'ambos') return 1;
+    if (b.toLowerCase() === 'ambos') return -1;
+    return a.localeCompare(b);
+  });
+  const availablePlatforms = ['Todas', ...sortedPlatforms];
+  const visiblePosts = unhiddenPosts.filter(p => {
+    if (filterStatus !== 'Todos') {
+      const s = p.status.toLowerCase();
+      if (filterStatus === 'Pendentes' && !['rascunho', 'pendente', 'postando', 'aprovado', 'agendado'].includes(s)) return false;
+      if (filterStatus === 'Publicados' && !['publicado', 'sucesso'].includes(s)) return false;
+      if (filterStatus === 'Com Erro' && s !== 'erro') return false;
+    }
+    if (filterPlatform !== 'Todas' && p.platform.toLowerCase() !== filterPlatform.toLowerCase()) return false;
+    const search = searchTerm.trim().toLowerCase();
+    if (search && !p.title.toLowerCase().includes(search) && !p.client.toLowerCase().includes(search)) return false;
+    return true;
+  });
   const stats = {
     total: visiblePosts.length,
     success: visiblePosts.filter(p => ['publicado', 'sucesso'].includes(p.status.toLowerCase())).length,
@@ -206,6 +285,20 @@ const Dashboard = () => {
       localStorage.setItem('hiddenPosts', JSON.stringify(newHidden));
     }
     setAlertConfig({ ...alertConfig, isOpen: false });
+  };
+  const getEmptyStateMessage = () => {
+    if (searchTerm) {
+      return `Nenhuma publicação encontrada para a busca "${searchTerm}".`;
+    }
+    let statusText = '';
+    switch (filterStatus) {
+      case 'Pendentes': statusText = ' pendente ou em rascunho'; break;
+      case 'Publicados': statusText = ' publicada'; break;
+      case 'Com Erro': statusText = ' com erro'; break;
+      default: statusText = ''; break;
+    }
+    let platformText = (filterPlatform === 'Todas' || filterPlatform.toLowerCase() === 'ambos') ? '' : ` do ${filterPlatform}`;
+    return `Nenhuma postagem${statusText}${platformText} encontrada no momento.`;
   };
   return (
     <main className="dashboard">
@@ -250,6 +343,35 @@ const Dashboard = () => {
           </span>
         </div>
       </div>
+      <div className="filters-container glass-panel animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <input 
+          type="text" 
+          className="filter-input"
+          placeholder="Buscar postagem ou cliente..." 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)} 
+        />
+        <CustomDropdown 
+          value={filterStatus}
+          onChange={setFilterStatus}
+          placeholder="Todos os Status"
+          options={[
+            { value: 'Todos', label: 'Todos os Status' },
+            { value: 'Pendentes', label: 'Pendentes / Rascunho' },
+            { value: 'Publicados', label: 'Publicados' },
+            { value: 'Com Erro', label: 'Com Erro' }
+          ]}
+        />
+        <CustomDropdown 
+          value={filterPlatform}
+          onChange={setFilterPlatform}
+          placeholder="Todas as Plataformas"
+          options={availablePlatforms.map(plat => ({
+            value: plat,
+            label: plat === 'Todas' ? 'Todas as Plataformas' : plat
+          }))}
+        />
+      </div>
       {error && !loading && (
         <div className="error-banner glass-panel animate-fade-in" style={{ animationDelay: '0.3s' }}>
           {error} (Mostrando dados de demonstração)
@@ -262,9 +384,19 @@ const Dashboard = () => {
             post={post} 
             index={index + 3} 
             onDelete={() => handleDeleteRequest(post.id)} 
+            onPreview={() => setPreviewPost(post)}
           />
         ))}
       </div>
+      {visiblePosts.length === 0 && !loading && !error && (
+        <div className="empty-state animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <svg className="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+            <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+          </svg>
+          <p>{getEmptyStateMessage()}</p>
+        </div>
+      )}
       <CustomAlert 
         isOpen={alertConfig.isOpen}
         title={alertConfig.title}
@@ -272,6 +404,10 @@ const Dashboard = () => {
         confirmText={alertConfig.confirmText}
         onConfirm={handleConfirmAlert}
         onCancel={() => setAlertConfig({ ...alertConfig, isOpen: false })}
+      />
+      <PreviewModal 
+        post={previewPost}
+        onClose={() => setPreviewPost(null)}
       />
     </main>
   );

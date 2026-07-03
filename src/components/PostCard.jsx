@@ -40,7 +40,7 @@ const getProgressLabel = (progress, status) => {
   return 'Aguardando';
 };
 
-const PostCard = ({ post, index, onDelete }) => {
+const PostCard = ({ post, index, onDelete, onPreview }) => {
   const animationDelay = `${index * 0.1}s`;
   // Pass REAL progress from Google Sheet to the animated hook
   const progress = useAnimatedProgress(post.progress || 0, post.status);
@@ -67,17 +67,30 @@ const PostCard = ({ post, index, onDelete }) => {
             {isActive && <span className="status-dot" style={{ backgroundColor: color }}></span>}
             {getStatusLabel(post.status)}
           </span>
-          <button 
-            className="delete-post-btn" 
-            onClick={onDelete}
-            title="Ocultar post"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 6h18"></path>
-              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-            </svg>
-          </button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button 
+              className="delete-post-btn" 
+              onClick={onPreview}
+              title="Pré-visualizar Post"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+            <button 
+              className="delete-post-btn" 
+              onClick={onDelete}
+              title="Ocultar post"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
       
