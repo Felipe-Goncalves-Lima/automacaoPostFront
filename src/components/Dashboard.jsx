@@ -321,6 +321,7 @@ const Dashboard = () => {
     let clientText = filterClient === 'Todos os Clientes' ? '' : ` para o cliente ${filterClient}`;
     return `Nenhuma postagem${statusText}${platformText}${clientText} encontrada no momento.`;
   };
+
   return (
     <main className="dashboard">
       <div className="stats-container animate-fade-in">
@@ -462,13 +463,16 @@ const Dashboard = () => {
       {visiblePosts.length === 0 && !loading && !error && (
         <div className="empty-state animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <svg className="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
-            <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
-          <p>{getEmptyStateMessage()}</p>
+          <h3>{getEmptyStateMessage()}</h3>
+          <p>Tente ajustar os filtros ou verificar a planilha base.</p>
         </div>
       )}
-      <CustomAlert 
+      
+      <CustomAlert  
         isOpen={alertConfig.isOpen}
         title={alertConfig.title}
         message={alertConfig.message}

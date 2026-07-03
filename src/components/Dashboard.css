@@ -293,3 +293,53 @@
   color: #60a5fa;
   font-weight: 500;
 }
+
+/* Light Mode Overrides */
+[data-theme="light"] .filter-input,
+[data-theme="light"] .dropdown-header {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .filter-input:focus,
+[data-theme="light"] .dropdown-header:hover,
+[data-theme="light"] .dropdown-header.open {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .dropdown-list {
+  background: #ffffff;
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+
+[data-theme="light"] .dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .view-toggle {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .view-btn {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .view-btn:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .view-btn.active {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+[data-theme="light"] .clear-all-btn:disabled {
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 0, 0, 0.1);
+}
