@@ -3,6 +3,7 @@ import PostCard from './PostCard';
 import CustomAlert from './CustomAlert';
 import PreviewModal from './PreviewModal';
 import CalendarView from './CalendarView';
+import InstagramFeedView from './InstagramFeedView';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
 const SHEET_ID = '1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU';
@@ -159,6 +160,7 @@ const Dashboard = () => {
   const isFirstLoad = useRef(true);
   const [filterStatus, setFilterStatus] = useState('Todos');
   const [filterPlatform, setFilterPlatform] = useState('Todas');
+  const [filterClient, setFilterClient] = useState('Todos os Clientes');
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('grid');
   
@@ -247,6 +249,10 @@ const Dashboard = () => {
     return a.localeCompare(b);
   });
   const availablePlatforms = ['Todas', ...sortedPlatforms];
+
+  const uniqueClientsRaw = [...new Set(unhiddenPosts.map(p => p.client).filter(Boolean))];
+  const availableClients = ['Todos os Clientes', ...uniqueClientsRaw.sort()];
+
   const visiblePosts = unhiddenPosts.filter(p => {
     if (filterStatus !== 'Todos') {
       const s = p.status.toLowerCase();
@@ -255,6 +261,8 @@ const Dashboard = () => {
       if (filterStatus === 'Com Erro' && s !== 'erro') return false;
     }
     if (filterPlatform !== 'Todas' && p.platform.toLowerCase() !== filterPlatform.toLowerCase()) return false;
+    if (filterClient !== 'Todos os Clientes' && p.client !== filterClient) return false;
+    
     const search = searchTerm.trim().toLowerCase();
     if (search && !p.title.toLowerCase().includes(search) && !p.client.toLowerCase().includes(search)) return false;
     return true;
@@ -310,7 +318,8 @@ const Dashboard = () => {
       default: statusText = ''; break;
     }
     let platformText = (filterPlatform === 'Todas' || filterPlatform.toLowerCase() === 'ambos') ? '' : ` do ${filterPlatform}`;
-    return `Nenhuma postagem${statusText}${platformText} encontrada no momento.`;
+    let clientText = filterClient === 'Todos os Clientes' ? '' : ` para o cliente ${filterClient}`;
+    return `Nenhuma postagem${statusText}${platformText}${clientText} encontrada no momento.`;
   };
   return (
     <main className="dashboard">
@@ -371,6 +380,13 @@ const Dashboard = () => {
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           </button>
+          <button 
+            className={`view-btn ${viewMode === 'feed' ? 'active' : ''}`}
+            onClick={() => setViewMode('feed')}
+            title="Mosaico Instagram"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+          </button>
         </div>
         <input 
           type="text" 
@@ -399,6 +415,15 @@ const Dashboard = () => {
             label: plat === 'Todas' ? 'Todas as Plataformas' : plat
           }))}
         />
+        <CustomDropdown 
+          value={filterClient}
+          onChange={setFilterClient}
+          placeholder="Todos os Clientes"
+          options={availableClients.map(client => ({
+            value: client,
+            label: client
+          }))}
+        />
       </div>
       {error && !loading && (
         <div className="error-banner glass-panel animate-fade-in" style={{ animationDelay: '0.3s' }}>
@@ -406,7 +431,7 @@ const Dashboard = () => {
         </div>
       )}
       
-      {viewMode === 'grid' ? (
+      {viewMode === 'grid' && (
         <div className="posts-grid">
           {visiblePosts.map((post, index) => (
             <PostCard 
@@ -418,8 +443,17 @@ const Dashboard = () => {
             />
           ))}
         </div>
-      ) : (
+      )}
+      
+      {viewMode === 'calendar' && (
         <CalendarView 
+          posts={visiblePosts}
+          onPreview={(post) => setPreviewPost(post)}
+        />
+      )}
+
+      {viewMode === 'feed' && (
+        <InstagramFeedView 
           posts={visiblePosts}
           onPreview={(post) => setPreviewPost(post)}
         />
