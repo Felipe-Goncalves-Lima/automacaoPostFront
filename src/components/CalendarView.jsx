@@ -5,10 +5,10 @@ const DAYS_OF_WEEK = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
 const getPlatformIcon = (platform) => {
   const p = platform.toLowerCase();
-  if (p === 'instagram') return '📸';
-  if (p === 'facebook') return '📘';
-  if (p === 'ambos') return '🔁';
-  return '📱';
+  if (p === 'instagram') return <i className="bi bi-instagram" style={{ color: '#E1306C' }}></i>;
+  if (p === 'facebook') return <i className="bi bi-facebook" style={{ color: '#1877F2' }}></i>;
+  if (p === 'ambos') return <i className="bi bi-arrow-repeat" style={{ color: '#10B981' }}></i>;
+  return <i className="bi bi-phone"></i>;
 };
 
 const CalendarView = ({ posts, onPreview }) => {

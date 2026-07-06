@@ -1,0 +1,116 @@
+.list-view-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: var(--surface-color);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.list-view-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 800px;
+}
+
+.list-view-table th {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--surface-border);
+  white-space: nowrap;
+}
+
+[data-theme="light"] .list-view-table th {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.list-view-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--surface-border);
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+.list-view-table tr:last-child td {
+  border-bottom: none;
+}
+
+.list-view-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .list-view-table tbody tr:hover td {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.list-col-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-col-client {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.list-platform-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.list-status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.list-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.list-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-action-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .list-action-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.list-date {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}

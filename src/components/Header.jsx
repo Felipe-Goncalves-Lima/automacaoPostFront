@@ -27,7 +27,7 @@ const Header = () => {
       </div>
       <div className="header-status">
         <button className="theme-toggle-btn" onClick={toggleTheme} title="Alternar Modo Claro/Escuro">
-          {theme === 'dark' ? '🌞' : '🌙'}
+          {theme === 'dark' ? <i className="bi bi-sun-fill" style={{ color: '#F59E0B' }}></i> : <i className="bi bi-moon-fill" style={{ color: '#475569' }}></i>}
         </button>
         <span className="status-dot"></span>
         <span className="status-text">Sistema de Postagem Ativo</span>

@@ -29,6 +29,14 @@ const getStatusLabel = (status) => {
   }
 };
 
+const getPlatformIcon = (platform) => {
+  const p = platform.toLowerCase();
+  if (p === 'instagram') return <i className="bi bi-instagram" style={{ color: '#E1306C', marginRight: '6px' }}></i>;
+  if (p === 'facebook') return <i className="bi bi-facebook" style={{ color: '#1877F2', marginRight: '6px' }}></i>;
+  if (p === 'ambos') return <i className="bi bi-arrow-repeat" style={{ color: '#10B981', marginRight: '6px' }}></i>;
+  return <i className="bi bi-phone" style={{ marginRight: '6px' }}></i>;
+};
+
 const getProgressLabel = (progress, status) => {
   if (['publicado', 'sucesso'].includes(status.toLowerCase())) return 'Concluído';
   if (status.toLowerCase() === 'erro') return 'Falhou';
@@ -97,7 +105,10 @@ const PostCard = ({ post, index, onDelete, onPreview }) => {
       <div className="post-details">
         <div className="detail-item">
           <span className="detail-label">Plataforma:</span>
-          <span className="detail-value">{post.platform}</span>
+          <span className="detail-value">
+            {getPlatformIcon(post.platform || '')}
+            {post.platform}
+          </span>
         </div>
         <div className="detail-item">
           <span className="detail-label">Data Agendada:</span>

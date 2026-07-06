@@ -152,3 +152,61 @@
   display: inline-block;
   flex-shrink: 0;
 }
+
+/* Light Mode Overrides */
+[data-theme="light"] .calendar-container {
+  background: var(--surface-color);
+  border-color: var(--surface-border);
+}
+
+[data-theme="light"] .calendar-header {
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom-color: var(--surface-border);
+}
+
+[data-theme="light"] .calendar-header h3 {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .calendar-nav-btn {
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .calendar-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .calendar-day-header {
+  color: var(--text-secondary);
+  border-bottom-color: var(--surface-border);
+}
+
+[data-theme="light"] .calendar-day {
+  border-right-color: var(--surface-border);
+  border-bottom-color: var(--surface-border);
+}
+
+[data-theme="light"] .calendar-day:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .calendar-day.other-month {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .calendar-day.today {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .calendar-day.today .day-number {
+  color: var(--status-success);
+}
+
+[data-theme="light"] .day-number {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .calendar-post-pill {
+  color: var(--text-primary);
+}

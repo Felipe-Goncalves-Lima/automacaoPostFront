@@ -4,6 +4,7 @@ import CustomAlert from './CustomAlert';
 import PreviewModal from './PreviewModal';
 import CalendarView from './CalendarView';
 import InstagramFeedView from './InstagramFeedView';
+import ListView from './ListView';
 import useN8nErrors from '../hooks/useN8nErrors';
 import './Dashboard.css';
 const SHEET_ID = '1wxpYxp7KP9K5GAraiVNg6ZgPIjZaIFYEeiQlK7pq1mU';
@@ -156,7 +157,7 @@ const Dashboard = () => {
   const [hiddenPosts, setHiddenPosts] = useState(() => JSON.parse(localStorage.getItem('hiddenPosts') || '[]'));
   const [alertConfig, setAlertConfig] = useState({ isOpen: false, type: null, targetId: null });
   const [previewPost, setPreviewPost] = useState(null);
-  const { errors: n8nErrors, isWorkflowActive } = useN8nErrors(); 
+  const { errors: n8nErrors, globalErrors, isWorkflowActive } = useN8nErrors(); 
   const isFirstLoad = useRef(true);
   const [filterStatus, setFilterStatus] = useState('Todos');
   const [filterPlatform, setFilterPlatform] = useState('Todas');
@@ -197,7 +198,7 @@ const Dashboard = () => {
         }));
         const clearedErrors = JSON.parse(localStorage.getItem('clearedN8nErrors') || '{}');
         let clearedErrorsUpdated = false;
-        const activeStatuses = ['aprovado', 'agendado', 'postando'];
+        const activeStatuses = ['aprovado', 'agendado', 'postando', 'erro'];
         const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
         const now = Date.now();
         const postsWithN8nErrors = formattedData.map(post => {
@@ -214,7 +215,7 @@ const Dashboard = () => {
               return {
                 ...post,
                 status: 'Erro',
-                errorMessage: n8nError.message,
+                errorMessage: post.errorMessage || n8nError.message,
               };
             }
           }
@@ -372,7 +373,14 @@ const Dashboard = () => {
             onClick={() => setViewMode('grid')}
             title="Visualização em Grade"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          </button>
+          <button 
+            className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+            onClick={() => setViewMode('list')}
+            title="Visualização em Lista"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
           </button>
           <button 
             className={`view-btn ${viewMode === 'calendar' ? 'active' : ''}`}
@@ -431,6 +439,16 @@ const Dashboard = () => {
           {error} (Mostrando dados de demonstração)
         </div>
       )}
+
+      {globalErrors && globalErrors.length > 0 && (
+        <div className="error-banner glass-panel animate-fade-in" style={{ animationDelay: '0.3s', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444' }}>
+          <strong style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <i className="bi bi-exclamation-triangle-fill"></i>
+            Alerta Crítico: O robô (n8n) parou de funcionar
+          </strong>
+          {globalErrors[0].message}
+        </div>
+      )}
       
       {viewMode === 'grid' && (
         <div className="posts-grid">
@@ -446,6 +464,14 @@ const Dashboard = () => {
         </div>
       )}
       
+      {viewMode === 'list' && visiblePosts.length > 0 && (
+        <ListView 
+          posts={visiblePosts} 
+          onDelete={handleDeleteRequest} 
+          onPreview={(post) => setPreviewPost(post)}
+        />
+      )}
+
       {viewMode === 'calendar' && (
         <CalendarView 
           posts={visiblePosts}
