@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+.calendar-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .calendar-header {
   display: flex;
   align-items: center;
@@ -46,6 +51,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   border-collapse: collapse;
+  min-width: 700px;
 }
 
 .calendar-day-header {

@@ -54,12 +54,26 @@
   position: relative;
   width: 100%;
   max-width: 400px;
+  max-height: 90vh;
   background: #000;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   border: 4px solid #333;
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-insta {
+  background: #fff;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .preview-close-btn {
@@ -84,14 +98,7 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
-.mockup-insta {
-  background: #fff;
-  color: #000;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  height: 650px;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .insta-header {
   display: flex;

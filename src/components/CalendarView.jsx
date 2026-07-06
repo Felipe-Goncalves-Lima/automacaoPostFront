@@ -91,33 +91,35 @@ const CalendarView = ({ posts, onPreview }) => {
         </div>
       </div>
       
-      <div className="calendar-grid">
-        {DAYS_OF_WEEK.map(day => (
-          <div key={day} className="calendar-day-header">{day}</div>
-        ))}
-        
-        {allDays.map((dayData, index) => {
-          const dayPosts = getPostsForDay(dayData.date);
-          const todayClass = isToday(dayData.date) ? 'today' : '';
-          const monthClass = dayData.isCurrentMonth ? 'current-month' : 'other-month';
+      <div className="calendar-scroll-wrapper">
+        <div className="calendar-grid">
+          {DAYS_OF_WEEK.map(day => (
+            <div key={day} className="calendar-day-header">{day}</div>
+          ))}
           
-          return (
-            <div key={index} className={`calendar-day ${monthClass} ${todayClass}`}>
-              <span className="day-number">{dayData.day}</span>
-              {dayPosts.map((post) => (
-                <div 
-                  key={post.id} 
-                  className={`calendar-post-pill status-${post.status.toLowerCase()}`}
-                  onClick={() => onPreview(post)}
-                  title={post.title}
-                >
-                  <span className="platform-icon">{getPlatformIcon(post.platform)}</span>
-                  <span>{post.client || 'Sem Cliente'}</span>
-                </div>
-              ))}
-            </div>
-          );
-        })}
+          {allDays.map((dayData, index) => {
+            const dayPosts = getPostsForDay(dayData.date);
+            const todayClass = isToday(dayData.date) ? 'today' : '';
+            const monthClass = dayData.isCurrentMonth ? 'current-month' : 'other-month';
+            
+            return (
+              <div key={index} className={`calendar-day ${monthClass} ${todayClass}`}>
+                <span className="day-number">{dayData.day}</span>
+                {dayPosts.map((post) => (
+                  <div 
+                    key={post.id} 
+                    className={`calendar-post-pill status-${post.status.toLowerCase()}`}
+                    onClick={() => onPreview(post)}
+                    title={post.title}
+                  >
+                    <span className="platform-icon">{getPlatformIcon(post.platform)}</span>
+                    <span>{post.client || 'Sem Cliente'}</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

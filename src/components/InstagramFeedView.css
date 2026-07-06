@@ -191,3 +191,26 @@
   color: white;
   filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
 }
+
+@media (max-width: 480px) {
+  .feed-profile-header {
+    padding: 16px 12px;
+    gap: 16px;
+  }
+  .feed-avatar {
+    width: 70px;
+    height: 70px;
+  }
+  .feed-stats {
+    gap: 12px;
+  }
+  .insta-stat-value {
+    font-size: 14px;
+  }
+  .insta-stat-label {
+    font-size: 12px;
+  }
+  .feed-bio-container {
+    padding: 0 12px 12px;
+  }
+}
